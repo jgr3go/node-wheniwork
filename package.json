@@ -1,6 +1,6 @@
 {
   "name": "wheniwork",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "WhenIWork API wrapper",
   "main": "lib/wheniwork.js",
   "repository": "https://github.com/jgr3go/node-wheniwork.git",

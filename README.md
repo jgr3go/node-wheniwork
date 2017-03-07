@@ -1,12 +1,15 @@
 # node-wheniwork
 node.js wrapper for WhenIWork APIs
 
+Endpoints, arguments, and responses can be found on [WhenIWork's documentation](http://dev.wheniwork.com/). 
+
 ## Installation  
 
 Install via npm  
 
 ```
 npm install --save wheniwork
+yarn add wheniwork
 ```
 
 ## Basic usage 
@@ -21,7 +24,7 @@ wiw.get('shifts', {
       end: new Date(2017, 03, 05)
     })
     .then(res => {
-      console.log(res.shifts); // http://dev.wheniwork.com/#listing-shifts
+      console.log(res.shifts);
     })
     .catch(err => {
       console.error(err);
