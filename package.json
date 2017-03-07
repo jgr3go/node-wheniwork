@@ -1,0 +1,21 @@
+{
+  "name": "wheniwork",
+  "version": "0.1.0",
+  "description": "WhenIWork API wrapper",
+  "main": "lib/wheniwork.js",
+  "repository": "https://github.com/jgr3go/node-wheniwork.git",
+  "author": "Jon Gregorowicz <jonathan.gregorowicz@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "test": "./node_modules/.bin/jest tests --config=jest.json"
+  },
+  "dependencies": {
+    "bluebird": "^3.5.0",
+    "lodash": "^4.17.4",
+    "request": "^2.80.0",
+    "request-promise": "^4.1.1"
+  },
+  "devDependencies": {
+    "jest": "^19.0.2"
+  }
+}
