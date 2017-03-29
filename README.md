@@ -17,7 +17,7 @@ yarn add wheniwork
 ```
 let WIW = require('wheniwork');
 
-wiw = new WIW(apiKey, username, password);
+let wiw = new WIW(apiKey, username, password);
 
 wiw.get('shifts', {
       start: new Date(2017, 03, 01),
@@ -85,6 +85,28 @@ Generally not needed, as `get`, `post`, `put`, and `delete` should cover most re
 * `options.headers`: Object (default: `'W-Token'` and `'W-UserId'` are included)
 * `options.qs`: Object of queries  
 * `options.body`: Request body
+
+
+## Options
+
+### Logging
+
+If you want to enable logging to the console of requests (or custom) you can pass in an options object:
+
+```  
+let wiw = new WIW(apikey, username, password, options); 
+```  
+
+Where options looks like the following:  
+
+```
+let options = {
+  logRequests: true,                   // (default: false)
+  logFn: mylogger.log.bind(mylogger),  // default: console.log
+}
+```
+
+
 
 ## Responses
 
