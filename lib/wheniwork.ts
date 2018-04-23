@@ -85,7 +85,7 @@ class WhenIWork {
       });
   }
 
-  get(uri: string, query: {[key: string]: string}) {
+  get(uri: string, query?: {[key: string]: string}) {
     let options = {
       uri: this.base + uri,
       qs: query || undefined
@@ -93,7 +93,7 @@ class WhenIWork {
     return this.request(options);
   }
 
-  post(uri: string, body: any) {
+  post(uri: string, body?: any) {
     let options = {
       uri: this.base + uri,
       method: 'POST',
@@ -102,7 +102,7 @@ class WhenIWork {
     return this.request(options);
   }
 
-  put(uri: string, body: any) {
+  put(uri: string, body?: any) {
     let options = {
       uri: this.base + uri,
       method: 'PUT',

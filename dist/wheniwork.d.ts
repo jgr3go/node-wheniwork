@@ -19,11 +19,11 @@ declare class WhenIWork {
     constructor(apikey: string, username: string, password: string, options?: WhenIWorkOptions);
     _request(options: any, nolog?: boolean): BB<any>;
     request(options: any): any;
-    get(uri: string, query: {
+    get(uri: string, query?: {
         [key: string]: string;
     }): any;
-    post(uri: string, body: any): any;
-    put(uri: string, body: any): any;
+    post(uri: string, body?: any): any;
+    put(uri: string, body?: any): any;
     delete(uri: string): any;
     login(): BB<void>;
 }
