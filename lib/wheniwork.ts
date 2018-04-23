@@ -1,11 +1,39 @@
-'use strict';
 
-let request = require('request-promise');
-let BB = require('bluebird');
-let _ = require('lodash');
+import * as request from 'request-promise';
+import * as BB from 'bluebird';
+import * as _ from 'lodash';
+import { WhenIWorkOptions } from './wheniwork-types';
+
+
 
 class WhenIWork {
-  constructor(apikey, username, password, options) {
+  key: string;
+  username: string;
+  password: string;
+  accountId: number;
+  base: string;
+  token: string;
+  user: any;
+  userId: number;
+  account: any;
+  config: WhenIWorkOptions;
+  log: Function;
+  error: Function;
+  ready: any;
+
+  constructor(apikey: string, token: string, options?: WhenIWorkOptions);
+  constructor(apikey: string, username: string, password: string, options?:WhenIWorkOptions);
+  constructor(apikey: string, ...args) {
+    let token: string, username: string, password: string, options: WhenIWorkOptions;
+    if (_.isString(args[0]) && _.isString(args[1])) {
+      username = args[0];
+      password = args[1];
+      options = args[2];
+    } else {
+      token = args[0];
+      options = args[1];
+    }
+
     options = _.assign({
       logRequests: false,
       logFn: console.log.bind(console),
@@ -18,7 +46,7 @@ class WhenIWork {
     this.accountId = options.accountId;
 
     this.base = 'https://api.wheniwork.com/2/';
-    this.token;
+    this.token = token;
     this.user;
     this.userId;
     this.account;
@@ -30,7 +58,7 @@ class WhenIWork {
     this.ready = this.login();
   }
 
-  _request (options, nolog) {
+  _request (options, nolog = false) {
     options = _.merge({
       method: 'GET',
       headers: {
@@ -57,7 +85,7 @@ class WhenIWork {
       });
   }
 
-  get(uri, query) {
+  get(uri: string, query: {[key: string]: string}) {
     let options = {
       uri: this.base + uri,
       qs: query || undefined
@@ -65,7 +93,7 @@ class WhenIWork {
     return this.request(options);
   }
 
-  post(uri, body) {
+  post(uri: string, body: any) {
     let options = {
       uri: this.base + uri,
       method: 'POST',
@@ -74,7 +102,7 @@ class WhenIWork {
     return this.request(options);
   }
 
-  put(uri, body) {
+  put(uri: string, body: any) {
     let options = {
       uri: this.base + uri,
       method: 'PUT',
@@ -83,7 +111,7 @@ class WhenIWork {
     return this.request(options);
   }
 
-  delete(uri) {
+  delete(uri: string) {
     let options = {
       uri: this.base + uri,
       method: 'DELETE'
@@ -92,15 +120,22 @@ class WhenIWork {
   }
 
   login () {
-    return this._request({
+    let req: any = {
       method: 'POST',
-      uri: this.base + 'login', 
-      body: {
+      uri: this.base + 'login'
+    };
+    if (this.token) {
+      req.headers = {
+        'W-Token': this.token
+      };
+    } else {
+      req.body = {
         username: this.username,
         password: this.password,
         key: this.key
-      }
-    }, true)
+      };
+    }
+    return this._request(req, true)
     .then(res => {
       this.token = res.login.token;
       if (res.user) {
@@ -134,6 +169,10 @@ class WhenIWork {
 }
 
 class WIWError extends Error {
+  status: number;
+  code: string;
+  message: string;
+
   constructor(err) {
     super(err);
     this.status = err.statusCode;
@@ -150,4 +189,4 @@ class WIWError extends Error {
   }
 }
 
-module.exports = WhenIWork;
+export = WhenIWork;

@@ -1,6 +1,6 @@
 'use strict';
 
-let WIW = require('../lib/wheniwork');
+let WIW = require('../dist/wheniwork');
 
 let key = process.env.WIWKEY;
 let user = process.env.WIWUSER;
