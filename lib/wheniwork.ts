@@ -90,7 +90,8 @@ class WhenIWork {
   get(uri: 'positions', query?: types.ListPositionsParameters): Promise<types.ListPositionsResponse>;
   get(uri: 'locations', query?: types.ListLocationsParameters): Promise<types.ListLocationsResponse>;
   get(uri: 'sites', query?: types.ListSitesParameters): Promise<types.ListSitesResponse>;
-  get(uri: string, query?: {[key: string]: any}) {
+  get(uri: string, query?: {[key: string]: any}): Promise<any>;
+  get(uri: string, query?: {[key: string]: any}): Promise<any> {
     let options = {
       uri: this.base + uri,
       qs: query || undefined

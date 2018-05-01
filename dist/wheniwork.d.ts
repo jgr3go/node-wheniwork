@@ -25,6 +25,9 @@ declare class WhenIWork {
     get(uri: 'positions', query?: types.ListPositionsParameters): Promise<types.ListPositionsResponse>;
     get(uri: 'locations', query?: types.ListLocationsParameters): Promise<types.ListLocationsResponse>;
     get(uri: 'sites', query?: types.ListSitesParameters): Promise<types.ListSitesResponse>;
+    get(uri: string, query?: {
+        [key: string]: any;
+    }): Promise<any>;
     post(uri: string, body?: any): any;
     put(uri: string, body?: any): any;
     delete(uri: string): any;
