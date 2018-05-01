@@ -20,11 +20,11 @@ declare class WhenIWork {
     constructor(apikey: string, username: string, password: string, options?: WhenIWorkOptions);
     _request(options: any, nolog?: boolean): BB<any>;
     request(options: any): any;
-    get(uri: 'shifts', query: types.ListShiftParameters): Promise<types.ListShiftsResponse>;
-    get(uri: 'users', query: types.ListUsersParameters): Promise<types.ListUsersResponse>;
-    get(uri: 'positions', query: types.ListPositionsParameters): Promise<types.ListPositionsResponse>;
-    get(uri: 'locations', query: types.ListLocationsParameters): Promise<types.ListLocationsResponse>;
-    get(uri: 'sites', query: types.ListSitesParameters): Promise<types.ListSitesResponse>;
+    get(uri: 'shifts', query?: types.ListShiftParameters): Promise<types.ListShiftsResponse>;
+    get(uri: 'users', query?: types.ListUsersParameters): Promise<types.ListUsersResponse>;
+    get(uri: 'positions', query?: types.ListPositionsParameters): Promise<types.ListPositionsResponse>;
+    get(uri: 'locations', query?: types.ListLocationsParameters): Promise<types.ListLocationsResponse>;
+    get(uri: 'sites', query?: types.ListSitesParameters): Promise<types.ListSitesResponse>;
     post(uri: string, body?: any): any;
     put(uri: string, body?: any): any;
     delete(uri: string): any;

@@ -85,11 +85,11 @@ class WhenIWork {
       });
   }
 
-  get(uri: 'shifts', query: types.ListShiftParameters): Promise<types.ListShiftsResponse>;
-  get(uri: 'users', query: types.ListUsersParameters): Promise<types.ListUsersResponse>;
-  get(uri: 'positions', query: types.ListPositionsParameters): Promise<types.ListPositionsResponse>;
-  get(uri: 'locations', query: types.ListLocationsParameters): Promise<types.ListLocationsResponse>;
-  get(uri: 'sites', query: types.ListSitesParameters): Promise<types.ListSitesResponse>;
+  get(uri: 'shifts', query?: types.ListShiftParameters): Promise<types.ListShiftsResponse>;
+  get(uri: 'users', query?: types.ListUsersParameters): Promise<types.ListUsersResponse>;
+  get(uri: 'positions', query?: types.ListPositionsParameters): Promise<types.ListPositionsResponse>;
+  get(uri: 'locations', query?: types.ListLocationsParameters): Promise<types.ListLocationsResponse>;
+  get(uri: 'sites', query?: types.ListSitesParameters): Promise<types.ListSitesResponse>;
   get(uri: string, query?: {[key: string]: any}) {
     let options = {
       uri: this.base + uri,
