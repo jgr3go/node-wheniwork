@@ -3,7 +3,7 @@ import * as request from 'request-promise';
 import * as BB from 'bluebird';
 import * as _ from 'lodash';
 import { WhenIWorkOptions } from './wheniwork-types';
-
+import * as types from './wheniwork-types';
 
 
 class WhenIWork {
@@ -13,9 +13,9 @@ class WhenIWork {
   accountId: number;
   base: string;
   token: string;
-  user: any;
+  user: types.User;
   userId: number;
-  account: any;
+  account: types.Account;
   config: WhenIWorkOptions;
   log: Function;
   error: Function;
@@ -85,7 +85,12 @@ class WhenIWork {
       });
   }
 
-  get(uri: string, query?: {[key: string]: string}) {
+  get(uri: 'shifts', query: types.ListShiftParameters): Promise<types.ListShiftsResponse>;
+  get(uri: 'users', query: types.ListUsersParameters): Promise<types.ListUsersResponse>;
+  get(uri: 'positions', query: types.ListPositionsParameters): Promise<types.ListPositionsResponse>;
+  get(uri: 'locations', query: types.ListLocationsParameters): Promise<types.ListLocationsResponse>;
+  get(uri: 'sites', query: types.ListSitesParameters): Promise<types.ListSitesResponse>;
+  get(uri: string, query?: {[key: string]: any}) {
     let options = {
       uri: this.base + uri,
       qs: query || undefined

@@ -1,6 +1,6 @@
 {
   "name": "wheniwork",
-  "version": "1.2.2",
+  "version": "1.2.3",
   "description": "WhenIWork API wrapper",
   "main": "./dist/wheniwork.js",
   "types": "./dist/wheniwork.d.ts",
