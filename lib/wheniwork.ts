@@ -5,6 +5,7 @@ import * as _ from 'lodash';
 import { WhenIWorkOptions } from './wheniwork-types';
 import * as types from './wheniwork-types';
 
+export * from './wheniwork-types';
 
 export default class WhenIWorkApi {
   key: string;

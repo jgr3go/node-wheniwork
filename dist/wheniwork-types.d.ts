@@ -1,3 +1,4 @@
+export {  };
 export declare type WhenIWorkOptions = {
     logRequests?: boolean;
     logFn?: Function;

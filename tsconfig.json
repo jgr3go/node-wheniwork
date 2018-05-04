@@ -17,5 +17,8 @@
     "node_modules",
     "dist/",
     "tests/"
+  ],
+  "include": [
+    "lib"
   ]
 }
