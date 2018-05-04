@@ -1,11 +1,10 @@
-export {  };
-export declare type WhenIWorkOptions = {
+export interface WhenIWorkOptions {
     logRequests?: boolean;
     logFn?: Function;
     errorFn?: Function;
     accountId?: number;
-};
-export declare type Shift = {
+}
+export interface Shift {
     id: number;
     account_id: number;
     user_id: number;
@@ -26,8 +25,8 @@ export declare type Shift = {
     acknowledged_at: string;
     creator_id: number;
     is_open: boolean;
-};
-export declare type Account = {
+}
+export interface Account {
     id: number;
     master_id: number;
     type: number;
@@ -42,16 +41,16 @@ export declare type Account = {
     timezone_name: string;
     settings: any;
     place: Place;
-};
-export declare type Place = {
+}
+export interface Place {
     business_name: string;
     address: string;
     place_id: string;
     place_type: string | string[];
     latitude: string | number;
     longitude: string | number;
-};
-export declare type User = {
+}
+export interface User {
     id: number;
     login_id: number;
     account_id: number;
@@ -75,16 +74,17 @@ export declare type User = {
     is_payroll: boolean;
     is_private: boolean;
     is_trusted: boolean;
-};
-export declare type Position = {
+    timezone_id: number;
+}
+export interface Position {
     id: number;
     account_id: number;
     name: string;
     color: string;
     created_at: string;
     updated_at: string;
-};
-export declare type Location = {
+}
+export interface Location {
     id: number;
     name: string;
     address: string;
@@ -92,8 +92,8 @@ export declare type Location = {
     created_at: string;
     updated_at: string;
     place: Place;
-};
-export declare type Site = {
+}
+export interface Site {
     id: number;
     account_id: number;
     location_id: number;
@@ -110,8 +110,8 @@ export declare type Site = {
     is_deleted: boolean;
     deleted_at: boolean;
     radius: number;
-};
-export declare type Availability = {
+}
+export interface Availability {
     id: number;
     account_id: number;
     user_id: number;
@@ -123,8 +123,8 @@ export declare type Availability = {
     repeat: number;
     created_at: string;
     updated_at: string;
-};
-export declare type AvailabilityItem = {
+}
+export interface AvailabilityItem {
     id: number;
     availability_id: number;
     user_id: number;
@@ -134,8 +134,8 @@ export declare type AvailabilityItem = {
     end_time: string;
     created_at: string;
     updated_at: string;
-};
-export declare type Time = {
+}
+export interface Time {
     id: number;
     account_id: number;
     user_id: number;
@@ -154,8 +154,8 @@ export declare type Time = {
     modified_by: number;
     updated_at: string;
     created_at: string;
-};
-export declare type Punch = {
+}
+export interface Punch {
     id: number;
     account_id: number;
     time_id: number;
@@ -175,14 +175,14 @@ export declare type Punch = {
     notes: string;
     updated_at: string;
     created_at: string;
-};
-export declare type Timezone = {
+}
+export interface Timezone {
     id: number;
     name: string;
     offset: number;
     olson_id: string;
-};
-export declare type ListShiftParameters = {
+}
+export interface ListShiftParameters {
     start?: string;
     end?: string;
     user_id?: number | string;
@@ -192,61 +192,62 @@ export declare type ListShiftParameters = {
     include_onlyopen?: boolean;
     unpublished?: boolean;
     deleted?: boolean;
-};
-export declare type ListShiftsResponse = {
+}
+export interface ListShiftsResponse {
     start: string;
     end: string;
     shifts: Shift[];
     users: User[];
     locations: Location[];
     positions: Position[];
-};
-export declare type ListUsersParameters = {
+}
+export interface ListUsersParameters {
     ids?: string;
     location_id?: number | string;
     show_deleted?: boolean;
-};
-export declare type ListUsersResponse = {
+}
+export interface ListUsersResponse {
     users: User[];
     locations: Location[];
     positions: Position[];
-};
-export declare type ListPositionsParameters = {
+}
+export interface ListPositionsParameters {
     show_deleted?: boolean;
-};
-export declare type ListPositionsResponse = {
+}
+export interface ListPositionsResponse {
     positions: Position[];
-};
-export declare type ListLocationsParameters = {};
-export declare type ListLocationsResponse = {
+}
+export interface ListLocationsParameters {
+}
+export interface ListLocationsResponse {
     locations: Location[];
-};
-export declare type ListSitesParameters = {
+}
+export interface ListSitesParameters {
     include_deleted?: boolean;
-};
-export declare type ListSitesResponse = {
+}
+export interface ListSitesResponse {
     sites: Site[];
-};
-export declare type ListAvailabilitiesParameters = {
+}
+export interface ListAvailabilitiesParameters {
     user_id?: number | string;
-};
-export declare type ListAvailabilitiesResponse = {
+}
+export interface ListAvailabilitiesResponse {
     availabilities: Availability[];
-};
-export declare type ListAvailabilityItemsParameters = {
+}
+export interface ListAvailabilityItemsParameters {
     user_id: number | string;
     start: string;
     end: string;
-};
-export declare type ListAvailabilityItemsResponse = {
+}
+export interface ListAvailabilityItemsResponse {
     availabilityitems: AvailabilityItem[];
-};
-export declare type ListTimesParameters = {
+}
+export interface ListTimesParameters {
     start?: string;
     end?: string;
     user_id?: number;
-};
-export declare type ListTimesResponse = {
+}
+export interface ListTimesResponse {
     start: string;
     end: string;
     times: Time[];
@@ -256,8 +257,9 @@ export declare type ListTimesResponse = {
     locations: Location[];
     positions: Position[];
     sites: Site[];
-};
-export declare type ListTimezonesParameters = {};
-export declare type ListTimezonesResponse = {
+}
+export interface ListTimezonesParameters {
+}
+export interface ListTimezonesResponse {
     timezones: Timezone[];
-};
+}
