@@ -1,6 +1,6 @@
 'use strict';
 
-let WIW = require('../dist/wheniwork');
+let WIW = require('../dist/wheniwork').WhenIWorkApi;
 
 let key = process.env.WIWKEY;
 let user = process.env.WIWUSER;

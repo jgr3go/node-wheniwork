@@ -152,6 +152,60 @@ export type AvailabilityItem = {
   updated_at: string;
 };
 
+export type Time = {
+  id: number;
+  account_id: number;
+  user_id: number;
+  creator_id: number;
+  position_id: number;
+  location_id: number;
+  site_id: number;
+  shift_id: number;
+  start_time: string;
+  end_time: string;
+  length: number;
+  hourly_rate: number;
+  is_alerted: boolean;
+  alert_type: number;
+  is_approved: boolean;
+  modified_by: number;
+  updated_at: string;
+  created_at: string;
+};
+
+export type Punch = {
+  id: number;
+  account_id: number;
+  time_id: number;
+  user_id: number;
+  location_id: number;
+  site_id: number;
+  // 1 = IN, 2 = OUT
+  type: number;
+  latitude: number;
+  longitude: number;
+  accuracy: number;
+  altitude: number;
+  ip_address: string;
+  is_alerted: boolean;
+  alert_type: number;
+  method: number;
+  method_name: string;
+  notes: string;
+  updated_at: string;
+  created_at: string;
+};
+
+export type Timezone = {
+  id: number;
+  name: string;
+  offset: number;
+  olson_id: string;
+};
+
+
+
+
 export type ListShiftParameters = {
   start?: string;
   end?: string;
@@ -225,4 +279,30 @@ export type ListAvailabilityItemsParameters = {
 
 export type ListAvailabilityItemsResponse = {
   availabilityitems: AvailabilityItem[];
+};
+
+export type ListTimesParameters = {
+  start?: string;
+  end?: string;
+  user_id?: number;
+};
+
+export type ListTimesResponse = {
+  start: string;
+  end: string;
+  times: Time[];
+  punches: Punch[];
+  shifts: Shift[];
+  users: User[];
+  locations: Location[];
+  positions: Position[];
+  sites: Site[];
+};
+
+export type ListTimezonesParameters = {
+
+};
+
+export type ListTimezonesResponse = {
+  timezones: Timezone[];
 };

@@ -2,7 +2,7 @@
 import * as BB from 'bluebird';
 import { WhenIWorkOptions } from './wheniwork-types';
 import * as types from './wheniwork-types';
-declare class WhenIWork {
+export default class WhenIWorkApi {
     key: string;
     username: string;
     password: string;
@@ -25,6 +25,8 @@ declare class WhenIWork {
     get(uri: 'positions', query?: types.ListPositionsParameters): Promise<types.ListPositionsResponse>;
     get(uri: 'locations', query?: types.ListLocationsParameters): Promise<types.ListLocationsResponse>;
     get(uri: 'sites', query?: types.ListSitesParameters): Promise<types.ListSitesResponse>;
+    get(uri: 'times', query?: types.ListTimesParameters): Promise<types.ListTimesResponse>;
+    get(uri: 'timezones', query?: types.ListTimezonesParameters): Promise<types.ListTimezonesResponse>;
     get(uri: string, query?: {
         [key: string]: any;
     }): Promise<any>;
@@ -33,4 +35,14 @@ declare class WhenIWork {
     delete(uri: string): any;
     login(): BB<void>;
 }
-export = WhenIWork;
+export declare class WIWError extends Error {
+    status: number;
+    code: string;
+    message: string;
+    constructor(err: any);
+    toJSON(): {
+        status: number;
+        code: string;
+        message: string;
+    };
+}

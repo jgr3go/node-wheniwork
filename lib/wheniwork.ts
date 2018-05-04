@@ -6,7 +6,7 @@ import { WhenIWorkOptions } from './wheniwork-types';
 import * as types from './wheniwork-types';
 
 
-class WhenIWork {
+export default class WhenIWorkApi {
   key: string;
   username: string;
   password: string;
@@ -90,6 +90,8 @@ class WhenIWork {
   get(uri: 'positions', query?: types.ListPositionsParameters): Promise<types.ListPositionsResponse>;
   get(uri: 'locations', query?: types.ListLocationsParameters): Promise<types.ListLocationsResponse>;
   get(uri: 'sites', query?: types.ListSitesParameters): Promise<types.ListSitesResponse>;
+  get(uri: 'times', query?: types.ListTimesParameters): Promise<types.ListTimesResponse>;
+  get(uri: 'timezones', query?: types.ListTimezonesParameters): Promise<types.ListTimezonesResponse>;
   get(uri: string, query?: {[key: string]: any}): Promise<any>;
   get(uri: string, query?: {[key: string]: any}): Promise<any> {
     let options = {
@@ -174,7 +176,7 @@ class WhenIWork {
   }
 }
 
-class WIWError extends Error {
+export class WIWError extends Error {
   status: number;
   code: string;
   message: string;
@@ -194,5 +196,3 @@ class WIWError extends Error {
     };
   }
 }
-
-export = WhenIWork;

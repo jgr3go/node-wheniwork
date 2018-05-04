@@ -1,7 +1,8 @@
 "use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 const request = require("request-promise");
 const _ = require("lodash");
-class WhenIWork {
+class WhenIWorkApi {
     constructor(apikey, ...args) {
         let token, username, password, options;
         if (_.isString(args[0]) && _.isString(args[1])) {
@@ -135,6 +136,7 @@ class WhenIWork {
         });
     }
 }
+exports.default = WhenIWorkApi;
 class WIWError extends Error {
     constructor(err) {
         super(err);
@@ -150,4 +152,4 @@ class WIWError extends Error {
         };
     }
 }
-module.exports = WhenIWork;
+exports.WIWError = WIWError;
