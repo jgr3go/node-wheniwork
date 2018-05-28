@@ -3,7 +3,7 @@ import * as BB from 'bluebird';
 import { WhenIWorkOptions } from './wheniwork-types';
 import * as types from './wheniwork-types';
 export * from './wheniwork-types';
-export default class WhenIWorkApi {
+export declare class WhenIWorkApi {
     key: string;
     username: string;
     password: string;
@@ -36,6 +36,8 @@ export default class WhenIWorkApi {
     delete(uri: string): any;
     login(): BB<void>;
 }
+export declare let WIW: typeof WhenIWorkApi;
+export default WhenIWorkApi;
 export declare class WIWError extends Error {
     status: number;
     code: string;

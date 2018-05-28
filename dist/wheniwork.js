@@ -30,7 +30,6 @@ class WhenIWorkApi {
         this.account;
         this.config = options;
         this.log = options.logFn;
-        this.error = options.errorFn;
         this.ready = this.login();
     }
     _request(options, nolog = false) {
@@ -136,6 +135,8 @@ class WhenIWorkApi {
         });
     }
 }
+exports.WhenIWorkApi = WhenIWorkApi;
+exports.WIW = WhenIWorkApi;
 exports.default = WhenIWorkApi;
 class WIWError extends Error {
     constructor(err) {

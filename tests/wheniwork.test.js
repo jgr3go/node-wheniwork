@@ -14,6 +14,12 @@ describe("WhenIWork", () => {
 
   describe('basic', () => {
 
+    test('require properly', () => {
+      let wiw = require('../dist/wheniwork');
+      expect(wiw.WhenIWorkApi).toBeDefined();
+      expect(wiw.WIW).toBeDefined();
+    });
+
     test('initialization works', () => {
       return wiw.ready
         .then(() => {
@@ -44,18 +50,15 @@ describe("WhenIWork", () => {
   });
 
   describe('logging', () => {
-    let origCLog, origCError;
-    let myCLog, myCError;
+    let origCLog;
+    let myCLog;
 
     beforeEach(() => {
       origCLog = console.log;
-      origCError = console.error;
 
       myCLog = jest.fn();
-      myCError = jest.fn();
 
       console.log = myCLog;
-      console.error = myCError;
     });
 
 
@@ -77,8 +80,7 @@ describe("WhenIWork", () => {
 
       wiw = new WIW(key, user, pass, {
         logRequests: true,
-        logFn: logger.one.bind(logger),
-        errorFn: logger.two.bind(logger)
+        logFn: logger.one.bind(logger)
       });
 
       return wiw.get('shifts')
@@ -91,7 +93,6 @@ describe("WhenIWork", () => {
 
     afterEach(() => {
       console.log = origCLog;
-      console.error = origCError;
     });
 
   });

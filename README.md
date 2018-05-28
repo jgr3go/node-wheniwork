@@ -15,7 +15,7 @@ yarn add wheniwork
 ## Basic usage 
 
 ```
-let WIW = require('wheniwork');
+let WIW = require('wheniwork').WIW;
 
 let wiw = new WIW(apiKey, username, password);
 
@@ -89,24 +89,27 @@ Generally not needed, as `get`, `post`, `put`, and `delete` should cover most re
 
 ## Options
 
-### Logging
-
-If you want to enable logging to the console of requests (or custom) you can pass in an options object:
-
-```  
-let wiw = new WIW(apikey, username, password, options); 
-```  
-
-Where options looks like the following:  
-
 ```
 let options = {
-  logRequests: true,                   // (default: false)
-  logFn: mylogger.log.bind(mylogger),  // default: console.log
-}
+  logRequests: true,
+  accountId: 12345
+};
+let wiw = new WIW(apikey, username, password, options);
 ```
 
+#### `options.logRequests` (Default: `false`)
 
+If you want to log the http requests made to WhenIWork, enable this option
+
+#### `options.logFn` (Default: `console.log`)
+
+Pass in a custom log function if you have your own logging class. 
+
+#### `options.accountId` (Default: `null`)
+
+If your login user has access to multiple accounts, you need to pass in an `accountId` to make sure all the requests are processed correctly. 
+
+  
 
 ## Responses
 

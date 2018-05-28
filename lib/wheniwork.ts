@@ -7,7 +7,8 @@ import * as types from './wheniwork-types';
 
 export * from './wheniwork-types';
 
-export default class WhenIWorkApi {
+
+export class WhenIWorkApi {
   key: string;
   username: string;
   password: string;
@@ -54,7 +55,6 @@ export default class WhenIWorkApi {
     
     this.config = options;
     this.log = options.logFn;
-    this.error = options.errorFn;
 
     this.ready = this.login();
   }
@@ -176,6 +176,8 @@ export default class WhenIWorkApi {
     });
   }
 }
+export let WIW = WhenIWorkApi;
+export default WhenIWorkApi;
 
 export class WIWError extends Error {
   status: number;
