@@ -23,17 +23,18 @@ export class WhenIWorkApi {
   error: Function;
   ready: any;
 
-  constructor(apikey: string, token: string, options?: WhenIWorkOptions);
   constructor(apikey: string, username: string, password: string, options?:WhenIWorkOptions);
+  constructor(apikey: string, token: string, userId: number, options?: WhenIWorkOptions);
   constructor(apikey: string, ...args) {
-    let token: string, username: string, password: string, options: WhenIWorkOptions;
+    let token: string, username: string, password: string, userId: number, options: WhenIWorkOptions;
     if (_.isString(args[0]) && _.isString(args[1])) {
       username = args[0];
       password = args[1];
       options = args[2];
     } else {
       token = args[0];
-      options = args[1];
+      userId = args[1];
+      options = args[2];
     }
 
     options = _.assign({
@@ -50,16 +51,17 @@ export class WhenIWorkApi {
     this.base = 'https://api.wheniwork.com/2/';
     this.token = token;
     this.user;
-    this.userId;
+    this.userId = userId;
     this.account;
     
     this.config = options;
     this.log = options.logFn;
 
+
     this.ready = this.login();
   }
 
-  _request (options, nolog = false) {
+  async _request (options, nolog = false): Promise<any> {
     options = _.merge({
       method: 'GET',
       headers: {
@@ -79,22 +81,25 @@ export class WhenIWorkApi {
       });
   }
 
-  request(options) {
-    return this.ready
-      .then(() => {
-        return this._request(options);
-      });
+  async request(options): Promise<any> {
+    await this.ready;  
+    return this._request(options);
   }
 
-  get(uri: 'shifts', query?: types.ListShiftParameters): Promise<types.ListShiftsResponse>;
-  get(uri: 'users', query?: types.ListUsersParameters): Promise<types.ListUsersResponse>;
-  get(uri: 'positions', query?: types.ListPositionsParameters): Promise<types.ListPositionsResponse>;
-  get(uri: 'locations', query?: types.ListLocationsParameters): Promise<types.ListLocationsResponse>;
-  get(uri: 'sites', query?: types.ListSitesParameters): Promise<types.ListSitesResponse>;
-  get(uri: 'times', query?: types.ListTimesParameters): Promise<types.ListTimesResponse>;
-  get(uri: 'timezones', query?: types.ListTimezonesParameters): Promise<types.ListTimezonesResponse>;
-  get(uri: string, query?: {[key: string]: any}): Promise<any>;
-  get(uri: string, query?: {[key: string]: any}): Promise<any> {
+  async get(uri: 'shifts', query?: types.ListShiftParameters): Promise<types.ListShiftsResponse>;
+  async get(uri: 'users', query?: types.ListUsersParameters): Promise<types.ListUsersResponse>;
+  async get(uri: 'positions', query?: types.ListPositionsParameters): Promise<types.ListPositionsResponse>;
+  async get(uri: 'locations', query?: types.ListLocationsParameters): Promise<types.ListLocationsResponse>;
+  async get(uri: 'sites', query?: types.ListSitesParameters): Promise<types.ListSitesResponse>;
+  async get(uri: 'times', query?: types.ListTimesParameters): Promise<types.ListTimesResponse>;
+  async get(uri: 'timezones', query?: types.ListTimezonesParameters): Promise<types.ListTimezonesResponse>;
+  async get(uri: 'blocks', query?: types.ListBlocksParameters): Promise<types.ListBlocksResponse>;
+  async get(uri: 'requests', query?: types.ListRequestsParameters): Promise<types.ListRequestsResponse>;
+  async get(uri: 'swaps', query?: types.ListSwapsParameters): Promise<types.ListSwapsResponse>;
+  async get(uri: 'messages', query?: types.ListMessagesParameters): Promise<types.ListMessagesResponse>;
+  async get(uri: 'templates', query?: types.ListTemplatesParameters): Promise<types.ListTemplatesResponse>;
+  async get(uri: string, query?: {[key: string]: any}): Promise<any>;
+  async get(uri: string, query?: {[key: string]: any}): Promise<any> {
     let options = {
       uri: this.base + uri,
       qs: query || undefined
@@ -102,7 +107,7 @@ export class WhenIWorkApi {
     return this.request(options);
   }
 
-  post(uri: string, body?: any) {
+  async post(uri: string, body?: any): Promise<any> {
     let options = {
       uri: this.base + uri,
       method: 'POST',
@@ -111,7 +116,7 @@ export class WhenIWorkApi {
     return this.request(options);
   }
 
-  put(uri: string, body?: any) {
+  async put(uri: string, body?: any): Promise<any> {
     let options = {
       uri: this.base + uri,
       method: 'PUT',
@@ -120,7 +125,7 @@ export class WhenIWorkApi {
     return this.request(options);
   }
 
-  delete(uri: string) {
+  async delete(uri: string): Promise<any> {
     let options = {
       uri: this.base + uri,
       method: 'DELETE'
@@ -128,7 +133,11 @@ export class WhenIWorkApi {
     return this.request(options);
   }
 
-  login () {
+  async login (): Promise<{user: types.User, account: types.Account}> {
+    if (this.user && this.account) {
+      return {user: this.user, account: this.account};
+    }
+
     let req: any = {
       method: 'POST',
       uri: this.base + 'login'
@@ -144,36 +153,41 @@ export class WhenIWorkApi {
         key: this.key
       };
     }
-    return this._request(req, true)
-    .then(res => {
-      this.token = res.login.token;
-      if (res.user) {
-        this.user = res.user;
-        this.userId = this.user.id;
-        this.account = res.account;
-      } else if (res.users && this.accountId) {
-        for (let user of res.users) {
-          if (user.account_id === this.accountId) {
-            this.user = user;
-            this.userId = user.id;
-          }
-        }
-        for (let account of res.accounts) {
-          if (account.id === this.accountId) {
-            this.account = account;
-          }
+    let res = await this._request(req, true);
+    
+    this.token = res.login.token;
+    
+    if (res.user) {
+      this.user = res.user;
+      this.userId = this.user.id;
+      this.account = res.account;
+    } 
+    else if (res.users && this.accountId) {
+      for (let user of res.users) {
+        if (user.account_id === this.accountId) {
+          this.user = user;
+          this.userId = user.id;
+          this.token = user.token;
         }
       }
-      if (!this.user) {
-        throw new WIWError({
-          statusCode: 400,
-          error: {
-            code: 'USER_ERROR',
-            error: 'WhenIWork responded with multiple users but there was no matching `accountId` in options'
-          }
-        });
+      for (let account of res.accounts) {
+        if (account.id === this.accountId) {
+          this.account = account;
+        }
       }
-    });
+    }
+    if (!this.user) {
+      throw new WIWError({
+        statusCode: 400,
+        error: {
+          code: 'USER_ERROR',
+          error: 'WhenIWork responded with multiple users but there was no matching `accountId` in options'
+        }
+      });
+    }
+    
+
+    return {user: this.user, account: this.account};
   }
 }
 export let WIW = WhenIWorkApi;

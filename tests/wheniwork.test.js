@@ -5,11 +5,13 @@ let WIW = require('../dist/wheniwork').WhenIWorkApi;
 let key = process.env.WIWKEY;
 let user = process.env.WIWUSER;
 let pass = process.env.WIWPASS;
+let accountId = parseInt(process.env.WIWACCOUNT);
+
 
 describe("WhenIWork", () => {
   let wiw;
   beforeEach(() => {
-    wiw = new WIW(key, user, pass);
+    wiw = new WIW(key, user, pass, {accountId});
   });
 
   describe('basic', () => {
@@ -47,6 +49,8 @@ describe("WhenIWork", () => {
         });
     });
 
+    
+
   });
 
   describe('logging', () => {
@@ -64,6 +68,7 @@ describe("WhenIWork", () => {
 
     test('log to console', () => {
       wiw = new WIW(key, user, pass, {
+        accountId,
         logRequests: true
       });
       return wiw.get('shifts')
@@ -79,6 +84,7 @@ describe("WhenIWork", () => {
       };
 
       wiw = new WIW(key, user, pass, {
+        accountId,
         logRequests: true,
         logFn: logger.one.bind(logger)
       });

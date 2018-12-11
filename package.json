@@ -1,6 +1,6 @@
 {
   "name": "wheniwork",
-  "version": "2.0.3",
+  "version": "2.0.4",
   "description": "WhenIWork API wrapper",
   "main": "./dist/wheniwork.js",
   "types": "./dist/wheniwork.d.ts",
@@ -25,7 +25,7 @@
     "jest": "^19.0.2",
     "ts-jest": "^22.4.4",
     "ts-node": "^6.0.0",
-    "typescript": "^2.8.3"
+    "typescript": "2.x"
   },
   "jest": {
     "transform": {
